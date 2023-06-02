@@ -27,3 +27,6 @@
 #define MOUSEKEY_TIME_TO_MAX 100
 #define MOUSEKEY_MAX_SPEED 5
 #define MOUSEKEY_WHEEL_DELAY 20
+
+#define IS_LAYER_ON_STATE(state, layer)  ( (state) & (1UL << (layer)))
+#define IS_LAYER_OFF_STATE(state, layer) (~(state) & (1UL << (layer)))

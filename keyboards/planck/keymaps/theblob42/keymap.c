@@ -4,6 +4,7 @@ enum planck_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _SUPER,
   _MEDIA,
   _MOUSE,
   _MOVE,
@@ -82,16 +83,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift| NUBS¹| NUHS²|      |      |      |      |      |   ,  |   .  |   /  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |Shift |      | Alt  | GUI  |      | Ctrl |
+ * | Ctrl |      | GUI  | Alt  |      |      |Shift |      | Alt  | GUI  |      | Ctrl |
  * `-----------------------------------------------------------------------------------'
  * ¹ Non US \ and |
  * ² Non US # and ~
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_DEL,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_BSPC,
-    LCTL_T(KC_GRV),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RCTL_T(KC_BSLS),
-    KC_LSFT,         KC_NUBS, KC_NUHS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_LSFT, XXXXXXX, KC_RALT, KC_RGUI, XXXXXXX, KC_RCTL
+    KC_DEL,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_DEL,
+    LCTL_T(KC_GRV),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,       KC_7,    KC_8,    KC_9,    KC_0,    RCTL_T(KC_BSLS),
+    XXXXXXX,         KC_NUBS, KC_NUHS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+    KC_LCTL,         XXXXXXX, KC_LGUI, KC_LALT, XXXXXXX, _______, MO(_RAISE), XXXXXXX, KC_RALT, KC_RGUI, XXXXXXX, KC_RCTL
 ),
 
 /* Raise
@@ -102,16 +103,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift| NUBS¹| NUHS²|      |      |      |      |      |   ,  |   .  |   /  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |      | GUI  | Alt  |      |Shift |      |      |      |      |      |      |
+ * | Ctrl |      | GUI  | Alt  |      |Shift |      |      | Alt  | GUI  |      | Ctrl |
  * `-----------------------------------------------------------------------------------'
  * ¹ Non US \ and |
  * ² Non US # and ~
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_DEL,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_BSPC,
+    KC_DEL,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_DEL,
+    LCTL_T(KC_GRV),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RCTL_T(KC_BSLS),
+    XXXXXXX,         KC_NUBS, KC_NUHS, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+    KC_LCTL,         XXXXXXX, KC_LGUI, KC_LALT, XXXXXXX, MO(_LOWER), _______, XXXXXXX, KC_RALT, KC_RGUI, XXXXXXX, KC_RCTL
+),
+
+/* Super
+ * Note: Everything is shifted (see 'layer_state_set_user')
+ * ,-----------------------------------------------------------------------------------.
+ * | Del  |      |      |      |      |      |      |   [  |   ]  |   -  |   =  |  BS  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl`|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |Ctrl_\|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      | NUBS¹| NUHS²|      |      |      |      |      |   ,  |   .  |   /  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |      | GUI  | Alt  |      |      |      |      | Alt  | GUI  |      | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ * ¹ Non US \ and |
+ * ² Non US # and ~
+ */
+[_SUPER] = LAYOUT_planck_grid(
+    KC_DEL,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_DEL,
     LCTL_T(KC_GRV),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RCTL_T(KC_BSLS),
-    KC_LSFT,         KC_NUBS, KC_NUHS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    KC_LCTL,         XXXXXXX, KC_LGUI, KC_LALT, XXXXXXX, KC_LSFT, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX,         KC_NUBS, KC_NUHS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+    KC_LCTL,         XXXXXXX, KC_LGUI, KC_LALT, XXXXXXX, _______, _______, XXXXXXX, KC_RALT, KC_RGUI, XXXXXXX, KC_RCTL
 ),
 
 /* Mouse
@@ -160,4 +182,21 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         default:
             return TAPPING_TERM;
     }
+}
+
+// when switching to SUPER we register the shift key
+layer_state_t layer_state_set_user(layer_state_t state) {
+    static bool super_on = false;
+
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _SUPER);
+    if (super_on != IS_LAYER_ON_STATE(state, _SUPER)) {
+        super_on = !super_on;
+
+        if (super_on) {
+            register_code(KC_LSFT);
+        } else {
+            unregister_code(KC_LSFT);
+        }
+    }
+    return state;
 }
